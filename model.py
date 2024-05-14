@@ -33,6 +33,7 @@ class Model(nn.Module):
         self.simAdj = SimilarityAdj(n_features, 32)
         self.disAdj = DistanceAdj()
 
+        # FULLY CONNECTED LAYER
         self.classifier = nn.Linear(32*3, n_class)
         self.approximator = nn.Sequential(nn.Conv1d(128, 64, 1, padding=0), nn.ReLU(),
                                           nn.Conv1d(64, 32, 1, padding=0), nn.ReLU())

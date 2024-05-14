@@ -175,7 +175,7 @@ class DistanceAdj(Module):
         # To support batch operations
         self.arith = np.arange(max_seqlen).reshape(-1, 1)
         dist = pdist(self.arith, metric='cityblock').astype(np.float32)
-        self.dist = torch.from_numpy(squareform(dist)).to('cuda')
+        self.dist = torch.from_numpy(squareform(dist)).to('cpu')
         self.dist = torch.exp(-self.dist / torch.exp(torch.tensor(1.)))
-        self.dist = torch.unsqueeze(self.dist, 0).repeat(batch_size, 1, 1).to('cuda')
+        self.dist = torch.unsqueeze(self.dist, 0).repeat(batch_size, 1, 1).to('cpu')
         return self.dist
