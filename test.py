@@ -5,10 +5,10 @@ import torch
 def test(dataloader, model, device, gt):
     with torch.no_grad():
         model.eval()
-        pred = torch.zeros(0).to(device)
-        pred2 = torch.zeros(0).to(device)
+        pred = torch.zeros(0)#.to(device)
+        pred2 = torch.zeros(0)#.to(device)
         for i, input in enumerate(dataloader):
-            input = input.to(device)
+            # input = input.to(device)
             logits, logits2 = model(inputs=input, seq_len=None)
             logits = torch.squeeze(logits)
             sig = torch.sigmoid(logits)
@@ -32,7 +32,7 @@ def test(dataloader, model, device, gt):
         pr_auc = auc(recall, precision)
         precision, recall, th = precision_recall_curve(list(gt), np.repeat(pred2, 16))
         pr_auc2 = auc(recall, precision)
-        return pr_auc, pr_auc2
+        return pr_auc, pr_auc2, pred, pred2
 
 
 
